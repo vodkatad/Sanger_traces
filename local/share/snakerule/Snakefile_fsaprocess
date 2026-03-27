@@ -1,0 +1,13 @@
+include: "conf.sk"
+
+rule all_single_something:
+    input: expand("{sample}.{{something}}", sample=FSA)
+    output: "all_samples.{something}"
+
+
+rule qc_plot:
+    input: fsa=DATA_DIR+"/{sample}.fsa"
+    output: plot="{sample}.rawsignal.png"
+    log: log="{sample}.fsareading.log"
+    params: n_channels=N_CHANNELS
+    script: SRC_DIR+"/fsa_raw_plots.R"

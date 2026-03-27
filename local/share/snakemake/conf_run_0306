@@ -1,0 +1,22 @@
+import os
+def find_prj_root(path=os.getcwd()):
+    if os.path.isfile(os.path.join(path,".PRJ_ROOT")):
+        return path
+    else:
+        if path:
+            return find_prj_root(os.path.dirname(path))
+        else:
+            raise Exception("Can not find the PRJ_ROOT directory")
+
+PRJ_ROOT=find_prj_root()
+BIN_DIR=PRJ_ROOT+"/local/bin"
+SRC_DIR=PRJ_ROOT+"/local/src"
+BIOINFO_ROOT = os.getenv('BIOINFO_ROOT')
+SNAKE_ROOT=os.getenv('SNAKE_ROOT')
+
+DATA_DIR=PRJ_ROOT+"/local/share/data/run_0326"
+
+FSA=["STR_2026-03-18_LADDER_AA_C05","STR_2026-03-18_LADDER_AA_H05","STR_2026-03-18_LADDER_AA_HB1","STR_2026-03-18_LT_FG_1A_AA_A01","STR_2026-03-18_LT_FG_1B_AA_B01","STR_2026-03-18_LT_FG_2A_AA_C01","STR_2026-03-18_LT_FG_2B_AA_D01","STR_2026-03-18_LT_FG_3A_AA_E01","STR_2026-03-18_LT_FG_3B_AA_F01","STR_2026-03-18_LT_FG_4A_AA_G01","STR_2026-03-18_LT_FG_4B_AA_H01","STR_2026-03-18_LT_FG_5A_AA_A03","STR_2026-03-18_LT_FG_5B_AA_B03","STR_2026-03-18_LT_FG_6A_AA_C03","STR_2026-03-18_LT_FG_6B_AA_D03","STR_2026-03-18_LT_FG_7A_AA_E03","STR_2026-03-18_LT_FG_7B_AA_F03","STR_2026-03-18_LT_FG_8A_AA_G03","STR_2026-03-18_LT_FG_8B_AA_H03","STR_2026-03-18_LT_FG_9A_AA_A05","STR_2026-03-18_LT_FG_9B_AA_B05"]
+FSA_NOLADDER=[x for x in FSA if re.search('LADDER', x)]
+
+N_CHANNELS=4 # always 4?
