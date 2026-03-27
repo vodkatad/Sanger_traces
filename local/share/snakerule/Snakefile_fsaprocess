@@ -3,7 +3,7 @@ include: "conf.sk"
 rule all_single_something:
     input: expand("{sample}.{{something}}", sample=FSA)
     output: "all_samples.{something}"
-
+    shell: "touch {output}" 
 
 rule qc_plot:
     input: fsa=DATA_DIR+"/{sample}.fsa"
@@ -11,3 +11,11 @@ rule qc_plot:
     log: log="{sample}.fsareading.log"
     params: n_channels=N_CHANNELS
     script: SRC_DIR+"/fsa_raw_plots.R"
+
+rule get_trace:
+    input: fsa=DATA_DIR+"/{sample}.fsa"
+    output: peaks="{sample}.fragman_peak.png", tracep="{sample}.fragman_traces.png", traces="{sample}.channels.tsv"
+    log: log="{sample}.fragman.log"
+    params: ladder_chan=N_CHANNELS
+    script: SRC_DIR+"/fsa_fragman_ladder.R"
+

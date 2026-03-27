@@ -22,8 +22,16 @@ for (i in seq(0, n_chan-1)) {
   intensities <- c(intensities, d0$Data[[i+begin]])
   channels <- c(channels, c(rep(paste0('channel_', i+1), n)))
 }
-save.image('p.Rdata')
 pd <- data.frame(intensity=intensities, channel=channels, x=rep(seq(1, n), n_chan))
 
 p1 <- ggplot(data=pd, aes(y=intensity, x=x, color=channel))+geom_line()+theme_bw(base_size=10)
 ggsave(p1, file=outplot)
+
+
+# Note that there are more d0$Data$DATA.1-4 (also DATA.5-8 in the first example) but only the first four with 'sensible' numbers
+
+# These are directly the raw data stored in the files. Which fluorofore is there / where is the ladder is not clear
+# it was in the fourth channel in the first data, I would check looking at the data directly where is the ladder.
+# We need a ladder for each fsa file to map these signals (all channels of a single fsa file share the length
+# of the signal in different channels) to basepairs
+# 
